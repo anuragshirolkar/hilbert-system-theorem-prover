@@ -71,10 +71,9 @@ tokenize string
            S |- a->b <=> S U {a} |- b
 -}
 parseNode :: ExpressionTree -> Node
---parseNode (Literal l) = (Node . Set.singleton . Node . Set.singleton. Val) l
---parseNode (Implication left right) = Node $ Set.insert (parseNode left) $ (children . parseNode) right
 parseNode (Literal l) = Val l
-parseNode (Implication left right@(Literal l)) = Node $ Set.insert (parseNode left) $ (children . doubleNegationWrap . parseNode) right
+parseNode (Implication left right@(Literal l))
+    = Node $ Set.insert (parseNode left) $ (children . doubleNegationWrap . parseNode) right
     where
         doubleNegationWrap :: Node -> Node
         doubleNegationWrap = Node . Set.singleton . Node . Set.singleton
