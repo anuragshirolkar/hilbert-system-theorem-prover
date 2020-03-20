@@ -3,7 +3,7 @@ import Data.Set (Set)
 
 {-|
     This Denotes that if all the children derive F then the original expression
-    is derivable.
+    is true.
 -}
 data Node = Val {value :: Char} | Node {children :: (Set Node)}
     deriving (Ord, Eq, Show)
